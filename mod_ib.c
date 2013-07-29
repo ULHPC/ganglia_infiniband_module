@@ -6,7 +6,7 @@ mmodule ib_module;
 static int ib_metric_init ( apr_pool_t *p )
 {
     int i;
-    
+
     for (i = 0; ib_module.metrics_info[i].name != NULL; i++) {
         /* Initialize the metadata storage for each of the metrics and then
          *  store one or more key/value pairs.  The define MGROUPS defines
@@ -14,7 +14,7 @@ static int ib_metric_init ( apr_pool_t *p )
         MMETRIC_INIT_METADATA(&(ib_module.metrics_info[i]),p);
         MMETRIC_ADD_METADATA(&(ib_module.metrics_info[i]),MGROUP,"infiniband");
     }
-    
+
     return 0;
 }
 
@@ -30,7 +30,7 @@ static g_val_t ib_metric_handler ( int metric_index )
      the metrics appear in the metric_info array
      */
     switch (metric_index) {
-        case 0: 
+        case 0:
         {
             FILE *fi;
             fi = fopen("/sys/class/infiniband/mlx4_0/ports/1/counters/port_xmit_data", "r");
@@ -38,7 +38,7 @@ static g_val_t ib_metric_handler ( int metric_index )
             fclose(fi);
         }
             break;
-        case 1:  
+        case 1:
         {
             FILE *fi;
             fi = fopen("/sys/class/infiniband/mlx4_0/ports/1/counters/port_rcv_data", "r");
@@ -64,9 +64,9 @@ static g_val_t ib_metric_handler ( int metric_index )
             break;
             default:    /* default case */
             data = 0;
-            
+
     }
-    if (data >= 2000000000){
+    if (data >= 4000000000){
 	    if (system( "/usr/sbin/perfquery -R -a")) {
 		}
 	}
@@ -74,7 +74,7 @@ static g_val_t ib_metric_handler ( int metric_index )
     return val;
 }
 
-static Ganglia_25metric ib_metric_info[] = 
+static Ganglia_25metric ib_metric_info[] =
 {
     {0, "ib_bytes_out",  10, GANGLIA_VALUE_UNSIGNED_INT,  "bytes",   "both", "%u", UDP_HEADER_SIZE+8,  "Infiniband number of bytes out"},
     {0, "ib_bytes_in",   10, GANGLIA_VALUE_UNSIGNED_INT,  "bytes",   "both", "%u", UDP_HEADER_SIZE+8,  "Infiniband number of bytes in"},
