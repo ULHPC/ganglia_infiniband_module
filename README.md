@@ -16,6 +16,7 @@ Install these packages:
 
 * build-essential
 * libapr1-dev
+* libexpat1-dev
 * libganglia1-dev
 
 # Build
