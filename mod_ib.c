@@ -67,7 +67,12 @@ static g_val_t ib_metric_handler ( int metric_index )
 
     }
     if (data >= 4000000000){
+#if SUDO == 1
+	    if (system( "sudo /usr/sbin/perfquery -R")) {
+#else
 	    if (system( "/usr/sbin/perfquery -R")) {
+#endif
+
 		}
 	}
     val.uint32 = data;
