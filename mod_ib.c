@@ -66,7 +66,7 @@ static g_val_t ib_metric_handler ( int metric_index )
             data = 0;
 
     }
-    if (data >= 4000000000){
+    if (data >= 3000000000){
 #if SUDO == 1
 	    if (system( "sudo /usr/sbin/perfquery -R")) {
 #else
